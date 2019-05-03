@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Assign Bed</title>
+     <link rel="icon" href="http://52.179.98.77:4000/logo" type="image/icon type"> 
+  </head>
+  <body>
+<script>
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = dd + '/' + mm + '/' + yyyy;
+
+    $(document).ready(()=>{
+            console.log("pat details");
+            $.ajax({
+                dataType:"json",
+                url:'patDataFirst/',
+                type:'POST',
+                success: (data)=>{
+                    console.log(Object.values(data));
+                    document.getElementById("test1").innerHTML = data.name1;
+                    document.getElementById("test2").innerHTML = data.add1;
+                    document.getElementById("test3").innerHTML = data.phn1;
+                    document.getElementById("test4").innerHTML = data.disease1;
+                }
+            });
+        });
+    function assignData(){
+      var date= document.getElementById("test5").innerDate;
+      var docIdd= document.getElementById("test6").value;
+      var roomType= document.getElementById("test7").value;
+      $.ajax({
+                dataType:"json",
+                url:'patDataData/',
+                type:'POST',
+                data: { id:docIdd, room:roomType, date1:date} ,
+                success: (data)=>{
+                        console.log(data);
+                        alert("Details updated successfully !");
+                       }
+            });
+    }
+</script>
+   <!-- first section -->
+  <div class="card bg-light text-white" style="padding:10px;"> 
+    <div class="col-sm">
+      <ul class="nav nav-pills nav-justified" style="background-color: #4B0082; overflow: hidden;">
+      <li class="nav-item">
+      <a class="nav-link active" href="http://52.179.98.77:4000/adminhome">Add Doctor</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="http://52.179.98.77:4000/updateDoc">Update Doctor Details</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="http://52.179.98.77:4000/addPatient">Add Patient</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="http://52.179.98.77:4000/allPatientView">View All Patient</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="http://52.179.98.77:4000/discharge">Discharge Patient</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="http://52.179.98.77:4000/loginPage">Logout</a>
+      </li>
+      </ul>
+    </div>
+  </div>
+  <br>
+  <h1 style="color: #50026B;font-family: cursive, sans-serif;font-size: 26px;font-weight: bold;"> 
+<center>Assign Bed</center></h1>
+  <br>
+     <div class="container-fluid">
+     <div class="row">
+     <div class="col-sm">
+     <img src="http://52.179.98.77:4000/doctorPic" width="1000" height="500">
+     </div>
+     <div class="col-sm">
+    <table class="table table-striped table-dark">
+        <tr>
+            <td>Name</td>
+            <td id="test1"></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td id="test2"></td>
+         </tr>
+         <tr>
+            <td>Contact</td>
+            <td id="test3"></td>
+         </tr>
+         <tr>
+            <td>Disease</td>
+            <td id="test4"></td>
+         </tr>
+              <tr>
+              <td>Date</td>
+              <td id="test5"><script>document.write(today)</script> </td>
+         </tr>
+         <tr>
+            <td>Doctor Id</td>
+            <td> 
+                <select id="test6">
+                  <option value="None">--Select--</option>
+                  <option value="101">101</option>
+                  <option value="102">102</option>
+                  <option value="103">103</option>
+                </select>   
+             </td>
+         </tr>
+         <tr>
+               <td>Room Type</td>
+               <td> 
+                <select id="test7">
+                  <option value="None">--Select--</option>
+                  <option value="General">General</option>
+                  <option value="VIP">VIP</option>
+                  <option value="ICU">ICU</option>
+                </select>   
+             </td>
+         </tr>
+      </table>
+      <form method="get" action="http://52.179.98.77:4000/seatMap">
+      <center><button type="Search" class="btn btn-primary" onclick="assignData()">Select Bed</button></center>  
+       </form>>
+    </div>  
+  </div>
+</div>
+</body>
+</html>

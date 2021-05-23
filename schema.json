@@ -1,0 +1,75 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "bookStores": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "CTTermID": {
+                "type": "string"
+              },
+              "LMSLoginID": {
+                "type": "string"
+              },
+              "courses": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "divisionDisplayName": {
+                        "type": "string"
+                      },
+                      "departmentDisplayName": {
+                        "type": "string"
+                      },
+                      "courseDisplayName": {
+                        "type": "string"
+                      },
+                      "sectionDisplayName": {
+                        "type": "string"
+                      },
+                      "courseRefId": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "divisionDisplayName",
+                      "departmentDisplayName",
+                      "courseDisplayName",
+                      "sectionDisplayName",
+                      "courseRefId"
+                    ]
+                  }
+                ]
+              },
+              "merfnbr": {
+                "type": "string"
+              },
+              "termDir": {
+                "type": "string"
+              },
+              "userAction": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "CTTermID",
+              "LMSLoginID",
+              "courses",
+              "merfnbr",
+              "termDir",
+              "userAction"
+            ]
+          }
+        ]
+      }
+    },
+    "required": [
+      "bookStores"
+    ]
+  }
+  
